@@ -5,6 +5,9 @@ DFRobotMaqueenPlus.mototStop(Motors.ALL)
 let active = false
 let MOTOR_SPEED = 50
 let DISTANCE_THRESHOLD_CM = 10
+//  Check your robot! Change these pins if needed!
+let ULTRASONIC_GREEN_PIN = PIN.P1
+let ULTRASONIC_BLUE_PIN = PIN.P2
 input.onButtonPressed(Button.A, function go() {
     /** Sets the global 'active' variable to True */
     
@@ -20,10 +23,7 @@ input.onButtonPressed(Button.B, function stop() {
 })
 basic.forever(function on_forever() {
     /** Main loop. Checks ultrasonic distance and turns if too close. */
-    //  Check your robot! Change these numbers if needed!
-    //  First argument is ultrasonic GREEN wire pin
-    //  Second argument is ultrasonic BLUE wire pin    
-    let distance_cm = DFRobotMaqueenPlus.ultraSonic(PIN.P1, PIN.P2)
+    let distance_cm = DFRobotMaqueenPlus.ultraSonic(ULTRASONIC_GREEN_PIN, ULTRASONIC_BLUE_PIN)
     if (distance_cm < DISTANCE_THRESHOLD_CM) {
         DFRobotMaqueenPlus.setRGBLight(RGBLight.RGBR, Color.BLUE)
         if (active) {
